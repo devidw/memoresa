@@ -1,0 +1,53 @@
+= Memoresa Export
+
+Memoresa has an export feature, but unfortunately - for me - the download dies after a few
+seconds and never finishes.
+
+To be able to still export, this is a deno script that downloads all attachments and
+organizes them into directories with the name of the matter. Original file names
+of the attachments are respected.
+
+[source,plain]
+----
+out/
+  some-matter/
+    some-attachment.pdf
+    another-attachment.jpg
+  yet-another-matter/
+    attachment.pdf
+----
+
+== Usage
+
+=== Authentication
+
+Copy the `token` cookie from the website into an environment variable:
+
+[source,sh]
+----
+export MEMORESA_TOKEN=…
+----
+
+
+=== Execute the script
+
+[source,sh]
+----
+deno run --allow-all ./export.ts
+----
+
+
+== Caching
+
+API responses are written in JSON files onto disk in a `./cache` directory.
+Delete the directory to reset the cache.
+
+
+== Empty files
+
+For me, 2 of a few hundred downloads resulted in empty files, to identify them:
+
+[source,sh]
+----
+find ./out -type f -empty -iname '*.pdf'
+----
