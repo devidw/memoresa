@@ -2,11 +2,7 @@
 // Collect all attachments
 // Download all attachments
 
-const fetchOptions = {
-  headers: {
-    cookie: `token=${Deno.env.get("MEMORESA_TOKEN")}`,
-  },
-}
+import { fetchOptions } from "./shared.ts"
 
 const outDir = "./out"
 const cacheDir = "./cache"

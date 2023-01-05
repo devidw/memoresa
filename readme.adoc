@@ -1,4 +1,24 @@
-= Memoresa Export
+= Memoresa Bulk Helper
+
+== Concepts
+
+=== Authentication
+
+Copy the `token` cookie from the website into an environment variable:
+
+[source,sh]
+----
+export MEMORESA_TOKEN=…
+----
+
+
+=== Caching
+
+API responses are written in JSON files onto disk in a `./cache` directory.
+Delete the directory to reset the cache.
+
+
+== Export
 
 Memoresa has an export feature, but unfortunately - for me - the download dies after a few
 seconds and never finishes.
@@ -17,37 +37,35 @@ out/
     attachment.pdf
 ----
 
-== Usage
-
-=== Authentication
-
-Copy the `token` cookie from the website into an environment variable:
-
-[source,sh]
-----
-export MEMORESA_TOKEN=…
-----
-
-
-=== Execute the script
+=== Usage
 
 [source,sh]
 ----
 deno run --allow-all ./export.ts
 ----
 
-
-== Caching
-
-API responses are written in JSON files onto disk in a `./cache` directory.
-Delete the directory to reset the cache.
-
-
-== Empty files
+=== Empty files
 
 For me, 2 of a few hundred downloads resulted in empty files, to identify them:
 
 [source,sh]
 ----
 find ./out -type f -empty -iname '*.pdf'
+----
+
+
+== Delete
+
+Bulk delete _all_ your matters.
+
+=== Usage
+
+For now you have to run the export before, since this script depends on the matters
+cache.
+
+Feel free to make a PR to handle this in a more elegant way.
+
+[source,sh]
+----
+deno run --allow-all ./delete.ts
 ----
